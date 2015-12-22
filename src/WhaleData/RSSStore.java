@@ -5,8 +5,10 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map.Entry;
+
 import javax.swing.DefaultListModel;
 
 import org.jdom.Comment;
@@ -201,7 +203,6 @@ public class RSSStore {
         Element UnreadSource = (Element) (root.getChildren("UnreadSource")).get(0);
         Element HavereadSource = (Element) (root.getChildren("HavereadSource")).get(0);
     	//Element类中定义了获取子元素的方法,得到所有子元素
-	    DefaultListModel listModel = new DefaultListModel();
     	List list=UnreadSource.getChildren("UA");
     	for(Iterator items = list.iterator();items.hasNext();){
     		//next()方法返回迭代的下一个元素。重复调用此方法直到hasNext()方法返回 false，
@@ -218,15 +219,15 @@ public class RSSStore {
       	XMLOutputter output=new XMLOutputter(format);
       	output.output(doc, new FileOutputStream(XMLData));
     }
-    public DefaultListModel  GetNewslist(){
-	    DefaultListModel listModel = new DefaultListModel();
+    public List<RArticle>  GetNewslist(){
+    	List<RArticle> listModel = new LinkedList();
         Iterator i = RS.entrySet().iterator();
         while(i.hasNext()){
             RSS r = (RSS) ((Entry) i.next()).getValue();
             Iterator j = r.UnreadA.entrySet().iterator();
             while(j.hasNext()){
             	RArticle u = (RArticle)((Entry)j.next()).getValue();
-            	listModel.addElement(u.Title);
+            	listModel.add(u);
             }
         }
         return listModel;
