@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RSSData>
+  <FeedSource>
+    <RSS>
+        <RID>197c200a</RID>
+        <Title>知乎每日精选</Title>
+        <Feed_URL>http://www.zhihu.com/rss</Feed_URL>
+        <Homepage_URL>http://www.zhihu.com</Homepage_URL>
+    </RSS>
+    <RSS>
+        <RID>adfcf007</RID>
+        <Title>微软亚洲研究院</Title>
+        <Feed_URL>http://blog.sina.com.cn/rss/1286528122.xml</Feed_URL>
+        <Homepage_URL>http://blog.sina.com.cn/msra</Homepage_URL>
+    </RSS>
+    <RSS>
+        <RID>13ff8</RID>
+        <Title>Rag</Title>
+        <Feed_URL>http://iyanlei.com/feed</Feed_URL>
+        <Homepage_URL>http://iyanlei.com/</Homepage_URL>
+    </RSS>
+  </FeedSource>
+  <UnreadSource>
+    <UA source="13ff8">
+        <UID>f047b809</UID>
+        <Title>Chrome快捷键大全</Title>
+        <URL>http://iyanlei.com/chrome.html</URL>
+        <Abstract>平时基本都是使用chrome浏览器，找了个快捷键大全，加快使用效率标签页和窗口快捷键Ctrl+N打开新窗口。Ctrl+T打开新标签页。Ctrl+Shift+N在隐身模式下打开新窗口。按?Ctrl...</Abstract>
+        <Author>Ray</Author>
+        <Date>2015-07-04 15:22:00</Date>
+        <!-->E M dd HH:mm:ss zzz yyyy<-->
+    </UA>
+  </UnreadSource>
+  <HavereadSource>
+  </HavereadSource>
+</RSSData>
