@@ -14,8 +14,9 @@ public class RArticle {
     public String Abstract;
     public String Author;
     public Date date;
+    public String RSS;
     public boolean ifread,dirty,ifremove;
-	public RArticle(Element ua, boolean t){
+	public RArticle(Element ua, boolean t, String r){
     	UID = ua.getChildText("UID");
     	Title = ua.getChildText("Title");
     	URL = ua.getChildText("URL");
@@ -24,12 +25,13 @@ public class RArticle {
     	ifread = t;
     	dirty = false;
     	ifremove = false;
+    	RSS = r;
     	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	try{
     		date = sdf.parse(ua.getChildText("Date"));
     	}catch(Exception e){ System.out.println(e);}
     }
-	public RArticle(SyndEntry entry) throws Exception{
+	public RArticle(SyndEntry entry, String r) throws Exception{
     	Title = entry.getTitle();
     	UID = Integer.toHexString(Title.hashCode());
     	URL = entry.getLink();
@@ -37,6 +39,7 @@ public class RArticle {
     	Abstract = description.getValue();
     	Author = entry.getAuthor();
     	date = entry.getPublishedDate();
+    	RSS = r;
     	ifread = false;
     	dirty = false;
     	ifremove = false;

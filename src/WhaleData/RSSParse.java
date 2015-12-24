@@ -38,7 +38,7 @@ public final class RSSParse {
                 //---------------------------------------------------------------
                 //添加检测当前键值是否已经存在
                 //---------------------------------------------------------------
-            	RArticle ua = new RArticle(entry);
+            	RArticle ua = new RArticle(entry, rss);
             	LibInfo.Nuid++;
             	res.add(ua);
             }

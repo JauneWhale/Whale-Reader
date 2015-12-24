@@ -98,10 +98,10 @@ public class RSSStore {
             for(int j = 0; j < UAList.size(); j++){
                 //获取UA元素
             	Element us = UAList.get(j);
-            	RArticle ua = new RArticle(us, false);
             	//单RSShashtable的修改
             	String a = us.getAttributeValue("source");
             	RSS tmp = RS.get(a);
+            	RArticle ua = new RArticle(us, false, tmp.Title);
             	tmp.UnreadA.put(ua.UID,ua);
             	tmp.AllA.put(ua.UID, ua);
             	tmp.UnReadNum++;
@@ -112,9 +112,9 @@ public class RSSStore {
             List<Element> HAList = HavereadSource.getChildren("UA");
             for(int j = 0; j < HAList.size(); j++){
             	Element hs = HAList.get(j);
-            	RArticle ha = new RArticle(hs, true);
             	String a = hs.getAttributeValue("source");
             	RSS tmp = RS.get(a);
+            	RArticle ha = new RArticle(hs, true, tmp.Title);
             	tmp.HavereadA.put(ha.UID,ha);
             	tmp.AllA.put(ha.UID, ha);
             	tmp.HaveReadNum++;
@@ -148,7 +148,7 @@ public class RSSStore {
                     SyndEntry entry = (SyndEntry) entries.get(j);
                 	if(r.UnreadA.containsKey(entry.getTitle().hashCode()))
                 		continue;
-                	RArticle ua = new RArticle(entry);
+                	RArticle ua = new RArticle(entry, r.Title);
                 	LibInfo.Nuid++;
                 	r.UnreadA.put(ua.UID, ua);
                 	r.AllA.put(ua.UID, ua);

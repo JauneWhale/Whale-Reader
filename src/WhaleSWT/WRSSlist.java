@@ -9,7 +9,10 @@ import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent; 
 import org.eclipse.swt.events.TreeEvent; 
 import org.eclipse.swt.events.TreeListener; 
-import org.eclipse.swt.layout.FillLayout; 
+import org.eclipse.swt.layout.FillLayout;
+import org.eclipse.swt.layout.FormAttachment;
+import org.eclipse.swt.layout.FormData;
+import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control; 
 import org.eclipse.swt.widgets.Display; 
 import org.eclipse.swt.widgets.Shell; 
@@ -18,15 +21,29 @@ import org.eclipse.swt.widgets.Tree;
 import org.eclipse.swt.widgets.TreeColumn; 
 import org.eclipse.swt.widgets.TreeItem; 
 
-public class WRSSlist { 
-   public static void main(String[] args) { 
-
-       final Display display = new Display(); 
-       final Shell shell = new Shell(display); 
+public class WRSSlist{ 
+   public static void main(String[] args) {
+	   final Display display = new Display();
+	   Shell shell = new Shell(display);
        shell.setText("Tree Sample"); 
-       shell.setLayout(new FillLayout()); 
+	   new WRSSlist(shell);
+       shell.setSize(200, 150); 
+       shell.open(); 
+       while (!shell.isDisposed()) { 
+           if (!display.readAndDispatch()) 
+               display.sleep(); 
+       } 
+       // ImageFactory.dispose(); 
+       display.dispose(); 
+   }
+   public WRSSlist(Composite shell){
        // 创建一个树对象 
-       final Tree tree = new Tree(shell, SWT.BORDER | SWT.SINGLE); 
+       final Tree tree = new Tree(shell, SWT.PUSH);
+       final FormData formData = new FormData();
+       formData.top = new FormAttachment(0, 25);
+       formData.left = new FormAttachment(0, 30);
+       formData.right = new FormAttachment(0, 60);
+       tree.setLayoutData(formData);
        //ftree.wid
        // 创建树的一个根节点 
        TreeItem root = new TreeItem(tree, SWT.NULL); 
@@ -38,7 +55,6 @@ public class WRSSlist {
        child2.setText("子孙2"); 
        TreeItem child3 = new TreeItem(root, SWT.NULL); 
        child3.setText("子孙3"); 
-
        TreeItem child11 = new TreeItem(child1, SWT.NULL); 
        child11.setText("子孙11"); 
        TreeItem child12 = new TreeItem(child1, SWT.NULL); 
@@ -74,6 +90,7 @@ public class WRSSlist {
        final TreeEditor editor = new TreeEditor(tree); 
        editor.horizontalAlignment = SWT.LEFT; 
        editor.grabHorizontal = true; 
+       editor.grabVertical = true;
        editor.minimumWidth = 30; 
        // 注册选中事件 
        tree.addSelectionListener(new SelectionAdapter() { 
@@ -108,25 +125,17 @@ public class WRSSlist {
        // ****************************************************************/ 
        // /*************************************************************** 
        // 为树创建5列 
-       for (int i = 0; i < 1; i++) { 
+       /*for (int i = 0; i < 5; i++) { 
            TreeColumn column = new TreeColumn(tree, SWT.NONE); 
            column.setText("column" + i); 
        } 
        for (int i = 0; i < tree.getColumnCount(); i++) 
-           tree.getColumn(i).pack(); 
+           tree.getColumn(i).pack(); */
        // 设置网格线可见 
        tree.setLinesVisible(false); 
        // 设置表头可见 
        tree.setHeaderVisible(false); 
        // ***************************************************************/ 
-       shell.setSize(200, 150); 
-       shell.open(); 
-       while (!shell.isDisposed()) { 
-           if (!display.readAndDispatch()) 
-               display.sleep(); 
-       } 
-       // ImageFactory.dispose(); 
-       display.dispose(); 
    } 
 
    // 设置树图标的方法 
