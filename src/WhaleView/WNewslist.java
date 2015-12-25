@@ -1,26 +1,18 @@
 package WhaleView;
 
+import WhaleData.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
-
-import WhaleData.*;
-
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-
-import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
-import java.net.URL;
-import java.util.Iterator;
+import java.awt.*;
 import java.util.List;
-import java.util.Map.Entry;
+/**
+ * Swing版本的view部分，已弃用
+ * @author Administrator
+ * @deprecated
+ */
 public class WNewslist implements ListSelectionListener{
 	JList list;
 	RSSParse tmp;
@@ -28,7 +20,7 @@ public class WNewslist implements ListSelectionListener{
 	public WNewslist(){
 		super();
 		RSSStore data = new RSSStore(1);
-		List<RArticle> l = data.GetNewslist();
+		List<RArticle> l = data.GetReadNewsList();
 	    DefaultListModel listModel = new DefaultListModel();
 
     	//Box b = Box.createHorizontalBox();

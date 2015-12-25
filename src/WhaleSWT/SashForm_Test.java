@@ -8,8 +8,12 @@ import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
-
-public class Sinppet109 {
+/**
+ * 用于测试分隔栏的类，弃用
+ * @author Administrator
+ * @deprecated
+ */
+public class SashForm_Test {
 	public static void main(String[] args){
 		String a = System.getProperty("user.dir");
 		System.out.println("用户的当前工作目录:/n"+a);   

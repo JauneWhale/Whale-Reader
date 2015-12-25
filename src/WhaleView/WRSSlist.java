@@ -1,26 +1,16 @@
 package WhaleView;
 
 import java.awt.Color;
-import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.net.URL;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Map.Entry;
-
 import javax.swing.tree.*;
-
-import com.sun.syndication.feed.synd.SyndEntry;
-import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
-
 import javax.swing.*;
 import WhaleData.*;
-
+/**
+ * Swing版本的view部分，已弃用
+ * @author Administrator
+ * @deprecated
+ */
 public class WRSSlist extends Box{
 	private DefaultTreeModel model; 
 	private JTree Wtree; 

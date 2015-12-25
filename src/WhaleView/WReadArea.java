@@ -7,7 +7,11 @@ import javax.swing.text.html.*;
 import javax.swing.*;
 import java.awt.*;
 import java.net.URL;
-
+/**
+ * Swing版本的view部分，已弃用
+ * @author Administrator
+ * @deprecated
+ */
 public class WReadArea extends Box implements HyperlinkListener{
 	public JTextField Content;
 	JEditorPane editorPane = new JEditorPane();

@@ -4,15 +4,15 @@ import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.*;
-import java.net.*;
-import java.util.Date;
-import java.util.List;
 
 import javax.swing.*;
-import javax.swing.table.*;
 
 import WhaleData.RSSStore;
-
+/**
+ * Swing版本的view部分，已弃用
+ * @author Administrator
+ * @deprecated
+ */
 public class Wframe extends JFrame {
 	int height,width;
 	//Frame Class

@@ -9,45 +9,13 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
+/**
+ * 此前用于获取相关RSS源信息的测试类，已弃用
+ * @author Administrator
+ * @deprecated
+ *
+ */
 public final class RSSParse {
-    public static void main(String[] args) {
-    	RSSParse test = new RSSParse();
-        test.parseRss("http://www.zhihu.com/rss");
-    }
-    /**
-     * Return the Article list from rss new
-     * @param rss
-     * @return
-     */
-    public static List<RArticle> ParseRss(String rss) {
-    	List<RArticle> res = new LinkedList();
-        try {
-            URL url = new URL(rss);
-            // 读取Rss源   
-            XmlReader reader = new XmlReader(url);
-            //System.out.println("Rss源的编码格式为：" + reader.getEncoding());
-            SyndFeedInput input = new SyndFeedInput();
-            // 得到SyndFeed对象，即得到Rss源里的所有信息   
-            SyndFeed feed = input.build(reader);
-            //System.out.println(feed);
-            // 得到Rss新闻中子项列表   
-            List entries = feed.getEntries();
-            // 循环得到每个子项信息   
-            for (int i = 0; i < entries.size(); i++) {
-                SyndEntry entry = (SyndEntry) entries.get(i);
-                //---------------------------------------------------------------
-                //添加检测当前键值是否已经存在
-                //---------------------------------------------------------------
-            	RArticle ua = new RArticle(entry, RSSStore.RS.get(rss.hashCode()));
-            	LibInfo.Nuid++;
-            	res.add(ua);
-            }
-            return res;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
     /**
      * Replace by ParseRss
      * @param rss

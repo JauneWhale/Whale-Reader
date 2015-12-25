@@ -5,6 +5,11 @@ import org.eclipse.swt.*;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 
+/**
+ * 后来设计为无菜单栏，已弃用
+ * @author Administrator
+ * @deprecated
+ */
 public class WMenuBar {
 	public WMenuBar(final Shell shell){
 		Menu mainMenu=new Menu(shell,SWT.BAR);
