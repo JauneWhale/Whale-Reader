@@ -7,7 +7,7 @@
         <Feed_URL>http://blog.sina.com.cn/rss/1286528122.xml</Feed_URL>
         <Homepage_URL>http://blog.sina.com.cn/msra</Homepage_URL>
     </RSS>
-  </FeedSource>
+  <RSS><RID>ca919dd6</RID><Title>Matrix67: The Aha Moments</Title><Feed_URL>http://www.matrix67.com/blog/feed</Feed_URL><Homepage_URL>http://www.matrix67.com/blog</Homepage_URL></RSS><RSS><RID>197c200a</RID><Title>知乎每日精选</Title><Feed_URL>http://www.zhihu.com/rss</Feed_URL><Homepage_URL>http://www.zhihu.com</Homepage_URL></RSS></FeedSource>
   <UnreadSource>
     <!-->
     <RSS>
@@ -29,8 +29,7 @@
         <Abstract>f047b809.html</Abstract>
         <Author>Ray</Author>
         <Date>2015-07-04 15:22:00</Date>
-    </UA><-->
-  </UnreadSource>
+    </UA><--></UnreadSource>
   <HavereadSource>
   </HavereadSource>
 </RSSData>
