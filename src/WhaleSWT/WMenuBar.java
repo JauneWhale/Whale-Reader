@@ -7,7 +7,6 @@ import org.eclipse.swt.events.SelectionEvent;
 
 public class WMenuBar {
 	public WMenuBar(final Shell shell){
-		shell.setText("菜单示例");
 		Menu mainMenu=new Menu(shell,SWT.BAR);
 		shell.setMenuBar(mainMenu);
 		//Menu mainMenu=new Menu(shell,SWT.POP_UP); //创建弹出式菜单

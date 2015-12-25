@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" standalone="yes"?>
+<fdtheme name="blue">
+	<colors>
+		<color name="base" value="11309920" />
+		<color name="baseFont" value="16777215" />
+		<color name="background" value="#D6E9FD" />
+		<color name="feedbar" value="16379366" />
+		<color name="focusHighlight" value="16379366" />
+		<color name="pageHeadDark" value="5191971" />
+		<color name="pageHeadLight" value="12687473" />
+	</colors>
+</fdtheme>

@@ -10,8 +10,11 @@ import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 
 public class Sinppet109 {
-
-  public static void main(String[] args) {
+	public static void main(String[] args){
+		String a = System.getProperty("user.dir");
+		System.out.println("用户的当前工作目录:/n"+a);   
+	}
+  public void haha(String[] args) {
     final Display display = new Display();
     Shell shell = new Shell(display);
     shell.setLayout(new FillLayout());

@@ -1,14 +1,21 @@
 package WhaleSWT;
 
 import org.eclipse.swt.SWT; 
-import org.eclipse.swt.browser.Browser; 
-import org.eclipse.swt.widgets.Button; 
+import org.eclipse.swt.browser.Browser;
+import org.eclipse.swt.custom.TreeEditor;
+import org.eclipse.swt.events.ModifyEvent;
+import org.eclipse.swt.events.ModifyListener;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Display; 
 import org.eclipse.swt.widgets.Event; 
 import org.eclipse.swt.widgets.Label; 
 import org.eclipse.swt.widgets.Listener; 
 import org.eclipse.swt.widgets.Shell; 
-import org.eclipse.swt.widgets.Text; 
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.TreeItem; 
 
 
 public class Test 
@@ -125,5 +132,45 @@ public class Test
             browser.setUrl(input); 
         	browser.setUrl("f:\\test.html");
         } 
-    }); */
+    }); 
+    
+       
+       // 创建一个可编辑的TreeEditor对象 
+       final TreeEditor editor = new TreeEditor(tree); 
+       editor.horizontalAlignment = SWT.LEFT; 
+       editor.grabHorizontal = true; 
+       editor.grabVertical = true;
+       editor.minimumWidth = 30; 
+       // 注册选中事件 
+       tree.addSelectionListener(new SelectionAdapter() { 
+           // 当鼠标双击节点时使节点可编辑 
+           public void widgetDefaultSelected(SelectionEvent e) { 
+               // 释放之前编辑的控件 
+               Control oldEditor = editor.getEditor(); 
+               if (oldEditor != null) 
+                   oldEditor.dispose(); 
+               // 获得触发事件的TreeItem，如果为null，返回 
+               TreeItem item = (TreeItem) e.item; 
+               if (item == null) 
+                   return; 
+               // 创建一个文本框，作为编辑节点时输入的文字 
+               Text newEditor = new Text(tree, SWT.NONE); 
+               // 将树节点的值赋值给文本框 
+               newEditor.setText(item.getText()); 
+               // 当文本框的值改变时，也相应的该把你树节点数据的值 
+               newEditor.addModifyListener(new ModifyListener() { 
+                   public void modifyText(ModifyEvent e) { 
+                       Text text = (Text) editor.getEditor(); 
+                       editor.getItem().setText(text.getText()); 
+                   } 
+               }); 
+               newEditor.selectAll();// 选中所有文本框 
+               newEditor.setFocus();// 并将焦点设置为该文本框 
+               // 将树节点与文本框节点绑定 
+               editor.setEditor(newEditor, item); 
+           } 
+
+       }); 
+    *
+    */
 } 

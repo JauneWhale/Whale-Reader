@@ -24,15 +24,21 @@ import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
+import WhaleData.RSSStore;
+
 public class Wframe implements TitleListener{
-	Shell shell;
+	static String freshBrowser;
+	static Shell shell;
 	String t;
 	int flag;
 	Browser browser;
 	Display display;
+	RSSStore aData;
 	public Wframe(String title,int height,int width){
+		freshBrowser = null;
+    	aData = new RSSStore(0);
 		display = new Display();
-		shell=new Shell(); 
+		shell=new Shell(display); 
         shell.setLayout(new FillLayout());
         shell.setText(title); 
         shell.setSize(width,height); 
@@ -42,19 +48,13 @@ public class Wframe implements TitleListener{
         SashForm form = new SashForm(shell, SWT.HORIZONTAL);
         form.setLayout(new FillLayout());
         //Set the RSS list
-        
         new WRSSlist(form);
         //Set the Read Area
         browser=new Browser(form,SWT.FILL); 
         browser.setLayout(new FillLayout()); 
-        browser.setUrl("d:\\javaworkspace\\WhaleReader\\Model.html");
+        browser.setUrl(System.getProperty("user.dir")+"\\html\\Index.html");
         flag = 0;
-        
         browser.addTitleListener(this);
-        //browser.setUrl("www.baidu.com");
-        //browser.execute(arg0)
-        
-        
         form.setWeights(new int[]{20,80});
 	}
 	private void open() {
@@ -64,6 +64,10 @@ public class Wframe implements TitleListener{
         while (!shell.isDisposed()) { 
             if (!display.readAndDispatch()) 
             	display.sleep(); 
+            if(freshBrowser!=null){
+            	browser.setUrl(freshBrowser);
+            	freshBrowser=null;
+            }
           } 
         display.dispose(); 
 	} 

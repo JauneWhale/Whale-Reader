@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import javax.swing.DefaultListModel;
+import javax.swing.tree.DefaultMutableTreeNode;
 
 import org.jdom.Comment;
 import org.jdom.Document;
@@ -23,19 +24,18 @@ import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
-
+import WhaleHtml.*;
 /**
  * Store all the related information about RSS
  * @author Administrator
  *
  */
 public class RSSStore {
-	//public static List<RSS> RS;
-	//public static List<UnreadArticle> UA;
 	public static final String XMLData = "RSSsource.xml";
 	public static LibInfo LIB;
 	public static Hashtable<String,RSS> RS;
 	public static Document doc;
+	public static RArticle r;
 	public static void main(String args[]){
 		RSSStore a = new RSSStore(1);
 		try {
@@ -47,10 +47,6 @@ public class RSSStore {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		/*for(int i=0; i<a.RS.size();i++){
-			System.out.println(Integer.toHexString((a.RS.get(i).Title.hashCode())));
-		}
-		System.out.println(Integer.toHexString("Chrome快捷键大全".hashCode()));*/
 	}
 	/**
 	 * 初始化整个阅读器的数据
@@ -58,11 +54,9 @@ public class RSSStore {
 	public RSSStore(int t){
 		if(t==0){
 			RS = new Hashtable<String,RSS>();
-			//RS = new LinkedList<RSS>();
-			//UA = new LinkedList<UnreadArticle>();
 			LIB = new LibInfo(0);
 			ReadXML();
-			UpdateXML();
+			//UpdateXML();
 		}
 		if(t==2)
 			UpdateXML();
@@ -101,7 +95,7 @@ public class RSSStore {
             	//单RSShashtable的修改
             	String a = us.getAttributeValue("source");
             	RSS tmp = RS.get(a);
-            	RArticle ua = new RArticle(us, false, tmp.Title);
+            	RArticle ua = new RArticle(us, false, tmp);
             	tmp.UnreadA.put(ua.UID,ua);
             	tmp.AllA.put(ua.UID, ua);
             	tmp.UnReadNum++;
@@ -114,7 +108,7 @@ public class RSSStore {
             	Element hs = HAList.get(j);
             	String a = hs.getAttributeValue("source");
             	RSS tmp = RS.get(a);
-            	RArticle ha = new RArticle(hs, true, tmp.Title);
+            	RArticle ha = new RArticle(hs, true, tmp);
             	tmp.HavereadA.put(ha.UID,ha);
             	tmp.AllA.put(ha.UID, ha);
             	tmp.HaveReadNum++;
@@ -124,10 +118,44 @@ public class RSSStore {
     /**
      * 通过网络更新当前的XML
      */
+    public RSS UpdateXML(String rid){
+        try {
+            RSS r = RS.get(rid);
+            //System.out.println(entry.Feed_URL);
+            URL url = new URL(r.Feed_URL);
+            // 读取Rss源   
+            XmlReader reader = new XmlReader(url);
+            System.out.println("Rss源的编码格式为：" + reader.getEncoding());
+            SyndFeedInput input = new SyndFeedInput();
+            // 得到SyndFeed对象，即得到Rss源里的所有信息   
+            SyndFeed feed = input.build(reader);
+            //System.out.println(feed);
+            // 得到Rss新闻中子项列表   
+            List entries = feed.getEntries();
+            // 循环得到每个子项信息   
+            for (int j = 0; j < entries.size(); j++) {
+                SyndEntry entry = (SyndEntry) entries.get(j);
+            	if(r.UnreadA.containsKey(entry.getTitle().hashCode()))
+            		continue;
+            	RArticle ua = new RArticle(entry, r);
+            	Hhtml.CreateHtml(ua, Hhtml.ITEMS);
+            	LibInfo.Nuid++;
+            	r.UnreadA.put(ua.UID, ua);
+            	r.AllA.put(ua.UID, ua);
+            	r.UnReadNum++;
+            	AddtoXML(ua,r.RID);
+            	//this.r = ua;
+            }
+            return r;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+    /**
+     * 通过网络更新当前的XML
+     */
     public void UpdateXML(){
-    	/*for(int i=0; i<=RS.size(); i++){
-    		UA.addAll(RSSParse.ParseRss(RS.get(i).Feed_URL));
-    	}*/
         try {
             Iterator i = RS.entrySet().iterator();
             while(i.hasNext()){
@@ -148,10 +176,12 @@ public class RSSStore {
                     SyndEntry entry = (SyndEntry) entries.get(j);
                 	if(r.UnreadA.containsKey(entry.getTitle().hashCode()))
                 		continue;
-                	RArticle ua = new RArticle(entry, r.Title);
+                	RArticle ua = new RArticle(entry, r);
+                	Hhtml.CreateHtml(ua, Hhtml.ITEMS);
                 	LibInfo.Nuid++;
                 	r.UnreadA.put(ua.UID, ua);
                 	r.AllA.put(ua.UID, ua);
+                	r.UnReadNum++;
                 	AddtoXML(ua,r.RID);
                 }
             }
@@ -159,6 +189,10 @@ public class RSSStore {
             e.printStackTrace();
         }
     }
+    /**
+     * Add an RSS to the XML
+     * @param r
+     */
     public void AddtoXML(RSS r){
     	Element root = doc.getRootElement();
         Element FeedSource = (Element) (root.getChildren("FeedSource")).get(0);
@@ -169,6 +203,11 @@ public class RSSStore {
         rss.addContent(new Element("Homepage_URL").setText(r.Homepage_URL));
         FeedSource.addContent(rss);
     }
+    /**
+     * Add an Article to the XML (must unread)
+     * @param ua
+     * @param ParentID
+     */
     public void AddtoXML(RArticle ua, String ParentID){
     	String sn = (ua.ifread)?"HavereadSource":"UnreadSource";
     	Element root = doc.getRootElement();
@@ -178,11 +217,34 @@ public class RSSStore {
         UA.addContent(new Element("UID").setText(ua.UID));
         UA.addContent(new Element("Title").setText(ua.Title));
         UA.addContent(new Element("URL").setText(ua.URL));
-        UA.addContent(new Element("Abstract").setText(ua.Abstract));
+        //UA.addContent(new Element("Abstract").setText(ua.Abstract));
         UA.addContent(new Element("Author").setText(ua.Author));
         UA.addContent(new Element("Date").setText((new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(ua.date)));
         Source.addContent(UA);
     }
+	public void DelAllRSSfromXML(){
+        Iterator i = RS.entrySet().iterator();
+        while(i.hasNext()){
+            RSS r = (RSS) ((Entry) i.next()).getValue();
+            DelfromXML(r);
+        }
+	}
+    /**
+     * Delete an RSSfrom the XML
+     * @param rid
+     */
+    public void DelfromXML(String rid){
+        RSS r = RS.get(rid);
+    	r.ifremove = true;
+    	for(Iterator i = r.AllA.entrySet().iterator();i.hasNext();){
+    		RArticle ua = (RArticle) ((Entry) i.next()).getValue();
+    		ua.ifremove = true;
+    	}
+    }
+    /**
+     * Delete an RSS from the XML
+     * @param r
+     */
     public void DelfromXML(RSS r){
     	r.ifremove = true;
     	for(Iterator i = r.AllA.entrySet().iterator();i.hasNext();){
@@ -190,8 +252,20 @@ public class RSSStore {
     		ua.ifremove = true;
     	}
     }
+    /**
+     * Delete an Article from the XML
+     * @param ua
+     */
     public void DelfromXML(RArticle ua){
     	ua.ifremove = true;
+    }
+    /**
+     * Mark an Article have read and judge the hash table
+     * @param ua
+     */
+    public void MarkReadfromXML(RArticle ua){
+    	ua.ifread = true;
+    	AddtoXML(ua, ua.Title);
     }
     /**
      * 保存XML
@@ -202,7 +276,7 @@ public class RSSStore {
     	Element root = doc.getRootElement();
         Element UnreadSource = (Element) (root.getChildren("UnreadSource")).get(0);
         Element HavereadSource = (Element) (root.getChildren("HavereadSource")).get(0);
-    	//Element类中定义了获取子元素的方法,得到所有子元素
+    	//Check the UnreadSource Information If remove or have read, then remove it.
     	List list=UnreadSource.getChildren("UA");
     	for(Iterator items = list.iterator();items.hasNext();){
     		//next()方法返回迭代的下一个元素。重复调用此方法直到hasNext()方法返回 false，
@@ -210,8 +284,24 @@ public class RSSStore {
     	    Element ua = (Element)items.next();
     	    Hashtable<String,RArticle> t = RS.get(ua.getAttributeValue("source")).AllA;
     	    RArticle ra = RS.get(ua.getAttributeValue("source")).AllA.get(ua.getChild("UID").getValue());
-    	    if(ra.ifremove)	{ ua.getParent().removeContent(ua); }
+    	    if(ra.ifremove)	{
+    	    	ua.getParent().removeContent(ua);
+    	    	Hhtml.RemovItem(ra);
+    	    }
     	    if(ra.ifread)	{ ua.getParent().removeContent(ua); }
+    	}
+    	//Check the HavereadSource information if remove
+    	list = HavereadSource.getChildren("UA");
+    	for(Iterator items = list.iterator();items.hasNext();){
+    		//next()方法返回迭代的下一个元素。重复调用此方法直到hasNext()方法返回 false，
+    		//这将精确地一次性返回迭代器指向的集合中的所有元素
+    	    Element ua = (Element)items.next();
+    	    Hashtable<String,RArticle> t = RS.get(ua.getAttributeValue("source")).AllA;
+    	    RArticle ra = RS.get(ua.getAttributeValue("source")).AllA.get(ua.getChild("UID").getValue());
+    	    if(ra.ifremove)	{
+    	    	ua.getParent().removeContent(ua);
+    	    	Hhtml.RemovItem(ra);
+    	    }
     	}
     	Format format=Format.getRawFormat();
     	format.setEncoding("UTF-8");
@@ -219,7 +309,11 @@ public class RSSStore {
       	XMLOutputter output=new XMLOutputter(format);
       	output.output(doc, new FileOutputStream(XMLData));
     }
-    public List<RArticle>  GetNewslist(){
+    /**
+     * Get all the unread News list
+     * @return
+     */
+    public List<RArticle>  GetUnreadNewsList(){
     	List<RArticle> listModel = new LinkedList();
         Iterator i = RS.entrySet().iterator();
         while(i.hasNext()){
@@ -227,9 +321,112 @@ public class RSSStore {
             Iterator j = r.UnreadA.entrySet().iterator();
             while(j.hasNext()){
             	RArticle u = (RArticle)((Entry)j.next()).getValue();
-            	listModel.add(u);
+            	if(!u.ifremove)
+            		listModel.add(u);
             }
         }
         return listModel;
     }
+    /**
+     * Get the News List from RSS source
+     * @param RSS
+     * @return
+     */
+    public List<RArticle> GetUnreadNewsList(RSS r){
+    	List<RArticle> listModel = new LinkedList<RArticle>();
+    	Iterator i = r.UnreadA.entrySet().iterator();
+    	while(i.hasNext()){
+    		RArticle u = (RArticle)((Entry)i.next()).getValue();
+    		if(!u.ifremove)
+    			listModel.add(u);
+    	}
+    	return listModel;
+    }
+    /**
+     * Get all the unread News list
+     * @return
+     */
+    public List<RArticle>  GetReadNewsList(){
+    	List<RArticle> listModel = new LinkedList<RArticle>();
+        Iterator i = RS.entrySet().iterator();
+        while(i.hasNext()){
+            RSS r = (RSS) ((Entry) i.next()).getValue();
+            Iterator j = r.HavereadA.entrySet().iterator();
+            while(j.hasNext()){
+            	RArticle u = (RArticle)((Entry)j.next()).getValue();
+            	if(!u.ifremove)
+            		listModel.add(u);
+            }
+        }
+        return listModel;
+    }
+    /**
+     * Get the News List from RSS source
+     * @param RSS
+     * @return
+     */
+    public List<RArticle> GetReadNewsList(RSS r){
+    	List<RArticle> listModel = new LinkedList<RArticle>();
+    	Iterator i = r.HavereadA.entrySet().iterator();
+    	while(i.hasNext()){
+    		RArticle u = (RArticle)((Entry)i.next()).getValue();
+    		if(!u.ifremove)
+    			listModel.add(u);
+    	}
+    	return listModel;
+    }
+	public List<String> BuildDefTree(){
+		List<String> rtree = new LinkedList<String>();
+        Iterator i = RS.entrySet().iterator();
+        while(i.hasNext()){
+            Entry<String, WhaleData.RSS> entry = (Entry<String, RSS>) i.next();
+			RSS r = (RSS) entry.getValue();
+			if(r.ifremove) continue;
+            String print;
+            if(r.UnReadNum!=0){
+            	print = r.Title + "(" + r.UnReadNum+")";
+            }
+            else{
+            	print = r.Title;
+            }
+            rtree.add(print);
+		}
+        return rtree;
+	}
+	public void BuildWatTree(DefaultMutableTreeNode WatRoot){
+		
+	}
+	public void BuildTagTree(DefaultMutableTreeNode TagRoot){
+		
+	}
+	/**
+	 * Mark all the article in RSS of rid read 
+	 * @param rid
+	 */
+	public RSS MarkAllRead(String rid){
+        RSS r = RS.get(rid);
+        MarkAllRead(r);
+        return r;
+	}
+	/**
+	 * Mark all the article in RSS of rid read
+	 * @param r
+	 */
+	public void MarkAllRead(RSS r){
+        Iterator j = r.UnreadA.entrySet().iterator();
+        while(j.hasNext()){
+        	RArticle u = (RArticle)((Entry)j.next()).getValue();
+        	u.ifread = true;
+        }		
+	}
+	/**
+	 * Mark all the article read
+	 */
+	public void MarkAllRead(){
+        Iterator i = RS.entrySet().iterator();
+        while(i.hasNext()){
+            RSS r = (RSS) ((Entry) i.next()).getValue();
+            MarkAllRead(r);
+        }
+	}
 }
