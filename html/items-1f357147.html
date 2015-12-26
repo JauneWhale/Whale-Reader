@@ -1,0 +1,595 @@
+锘?<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- saved from url=(0014)about:internet -->
+<html>
+<head>
+
+<meta http-equiv="X-UA-Compatible" content="IE=7">
+<title>items-1f357147</title>
+<style type="text/css">
+/**************************/
+/* start commonstyles.css */
+/**************************/
+
+/* make sure text overflows on the right and icons show in correct order when rtl encoding selected */
+div#newspapertitle, div#pagehead, div.newsitemtitle, div.postactions, div.groupheader, div.fdnewsitem {
+	direction: ltr;
+}
+
+/* search keyword highlight */
+span.fdsearchkeyword {
+	color: #000000;
+	background-color: #FFFF00;
+}
+span.fdsearchkeywordnum1 {	background-color: #acf2ad; }  /* light green */
+span.fdsearchkeywordnum2 {	background-color: #aeecff; }  /* light blue */
+span.fdsearchkeywordnum3 {	background-color: #ffceff; }  /* light purple */
+span.fdsearchkeywordnum4 {	background-color: #ffc3c3; }  /* light red */
+
+img { border: none; }
+
+/* profile image - currently only in Twitter Atom feeds */
+img.profileimg {
+	float: left;
+	height: 36px; /* 48px */
+	max-width: 36px;
+	margin-right: 8px;
+	border: 1px solid #555555;
+	/*filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2,OffY=2,Color=silver);*/
+}
+a:hover img.profileimg { border-color: Highlight; }
+
+div.friendlist { display: inline; }
+
+img.friendimg {
+	height: 16px;
+	margin-right: 4px;
+	border: none;
+}
+
+/* slang in Twitter feeds (RT, DM) */
+abbr.fdautohint {
+	font-weight: bold;
+	color: green;
+	cursor: help;
+}
+
+blockquote { font-style: italic; }
+
+div.categories { font-style: normal; font-size: smaller; }
+div.categories, div.categories a { color: GrayText; }
+div.categories a { text-decoration: none; }
+div.categories a:hover { text-decoration: underline; }
+
+/* don't allow images or other content to overflow the newsitem */
+div.fdnewsitem  { overflow: hidden; }
+
+/* get rid of unnecessary whitespace caused by paragraphs in description*/
+div.description p {
+	margin: 0;
+	padding: 0;
+	margin-bottom: 1em;
+}
+/* fixes problem where paragraphs immediately followed by an image may cut off text, or just look misplaced */
+div.description p img {
+	display: block;
+	/*border: 2px dotted red;*/
+}
+/* ...but don't apply above fix if align attribute is set for the image */
+div.description p img[align] {
+	display: inline;
+	/*border: 2px dotted green;*/
+}
+
+/* don't allow images to be wider than description (resizes those that are) */
+div.description img { max-width: 100%; }
+
+/* don't allow 'small' tag to make text unreadable */
+div.description small {	font-size: 85%; }
+/* don't let PRE sections overflow newsitem */
+div.description pre { overflow-x: hidden; text-overflow: ellipsis; }
+/* post w/o description expanded */
+span.nodescription { color: gray; font-style: italic; }
+
+/* postactions.inc */
+div.postactions { font-size: 11px; }
+img.icon { 
+	padding: 2px;
+	border: 1px dotted transparent;
+}
+img.icon:hover { 
+	border-color: #AAB8C0;
+	background-color: #E6EDF9;
+}
+
+span.taglist a { color: green; }
+img.postactions-sharemenu, img.postactions-moremenu, span.taglist { margin-right: 4px; }
+img.postactions-tagmenu {  }
+.sep { color: silver; margin: 0 3px; font-size: 10px; }
+
+/* "new items received" message */
+div#fdnewitemsreceived {
+	display: none;
+	background-color: InfoBackground;
+	color: InfoText;
+	border: 1px solid InfoText;
+	padding-top: 8px;
+	padding-left: 18px;
+	height: 30px;
+	position: absolute;	
+	left: 0px;
+	top: 0px;
+	right: 24px;
+	z-index: 2;
+	vertical-align: middle;
+}
+div#fdnewitemsreceived a { 
+	color: InfoText !important;
+	text-decoration: underline;
+}
+
+/* used by styles that require a specific version of IE */
+div#ie-version8, div#ie-version9 {
+	background-image: url("images/ie-icon.png");
+	background-position-x: 14px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	border-bottom: 2px solid #AAB8C0;
+	background-color: #C8D9E2;
+	color: #4C4C4C;
+	padding: 10px 48px;
+	font-weight: bold;
+}
+
+	div#ie-version8 { display:none; }
+
+	div#ie-version9 { display:none; }
+
+
+/* put space above Google feed ads */
+img[src*="feedads"] { margin-top: 20px; }
+
+/**************************/
+/* end commonstyles.css  */
+/**************************/
+			/********************/
+/* start surfer.css */
+/********************/
+
+body {
+	font-size: small;
+	font-family: "寰蒋闆呴粦", "Segoe UI", "Trebuchet MS", Tahoma, Verdana, sans-serif;	
+	line-height: 1.4em;		
+	margin: 0;
+	background-color: #ECF2F5;
+}
+
+#pagehead {
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	width: 100%;
+	color: #FFFFFF;
+	background-color: #23394F;
+	padding: 0px 12px;
+	padding-top: 6px; 
+	height: 32px;
+	/*background-image: url("file:///D|/FeedDemon/Data/themes/Blue/pagehead.png");
+	background-repeat: repeat-x;
+	background-position: top left;*/
+}
+#container {
+	position: relative;
+	top: 38px;
+	background-color: white;
+	height: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 { font-weight: bold; }
+h1 { font-size: 135%; }
+h2 { font-size: 115%; }
+h3 { font-size: 105% }
+h4, h5, h6 { font-size: 100%; }
+
+kbd, code, pre {
+	font-size: 100%;
+	line-height: 1.1em;
+}
+
+a {
+	color: #527D92;
+	text-decoration: none;
+}
+a:hover {
+	color: #8EAAB8;
+	text-decoration: underline;
+}
+
+a.notcached {
+	cursor:no-drop ! important;
+	text-decoration: none !important;
+	border-bottom: 1px dotted red ! important;
+}
+
+.groupheader {
+	color: #4C4C4C;
+	background-color: #C8D9E2;
+	height: 19px;
+	font-size: 11px;
+	padding-left: 14px;
+	padding-right: 3px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	border-bottom: 1px solid #AAB8C0;
+}
+
+/* th.feedreport is used by FeedReport.xsl */
+.groupheader, th.feedreport {
+	background-image: url("Blue/groupheader.png");
+	background-position: top left;
+	background-repeat: repeat-x;
+}
+
+.groupheader a { color: #4C4C4C; }
+.groupcaption { margin-right: 6px; }
+.groupcaption .icon { margin-left: 4px; }
+
+div#newspapertitle {
+	font-size: 16px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	padding-right: 6px; /* space between title and page icons */
+}
+
+#newspapertitle img { margin-right: 10px; }
+#newspapertitle, #newspapertitle a { color: white;  }
+
+img { border: none; }
+img.button { margin-left: 5px; margin-right: 8px; margin-top: 2px; }
+img.uplevel { margin-left: 6px; }
+img.favicon {
+	width: 12px;
+	height: 12px;
+	margin-right: 2px;
+	/*filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2,OffY=2,Color=#C8D9E2) 
+			  progid:DXImageTransform.Microsoft.Alpha(opacity=75);*/
+}
+
+div#newspapertitle img.icon { margin-left: 8px; margin-right: 0; }
+
+div.spacer { margin-bottom: 10px; }
+.groupitems.collapsed { display: none; }
+.expanded {  }		
+img.button { cursor: pointer; }
+
+.none { color: #708090; }
+.hidden { display: none; }
+sup.count { margin-right: 4px; font-weight: bold; color: black; }
+
+ul.actionlink { float: right; margin: 0; }
+li.actionlink { display: inline; margin-right: 6px; }
+li.actionlink a { color: blue; text-decoration: underline; }
+#pagehead li.actionlink a { color: white; }
+
+.unread { color: #000000; font-weight: bold; }
+.flagged { color: #DC143C !important; }
+.normal { color: black; font-weight: normal; }
+
+img.fdpostimg {
+	height: 70px;
+	max-width: 100px;
+	float: right;	
+	margin-left: 8px;
+	margin-right: 4px;
+	margin-top: 4px;
+}
+
+/* search form */
+form#searchform {
+	display: inline;
+	margin-left: 30px;
+	margin-right: -8px;
+	vertical-align: middle;
+	font-size: 11px;
+}
+input#searchinput {
+	background-image: url("images/search-tiny.png");
+	background-position-x: 116px;
+	background-position-y: center;
+	background-repeat: no-repeat;
+	border: 2px solid transparent;
+	height: 17px;
+	width: 130px;
+	padding-left: 4px;
+}
+input#searchinput:hover { border-color: #8EAAB8; }
+
+
+/*******************/
+/* end surfer.css  */
+/*******************/			
+
+			div#pagehead, div#container { min-width: 600px; }
+
+			/* prevent large images from overlapping subsequent posts (without the side-effects of using the 'overflow' property) */
+			div.fdnewsitem, #fdfocusedpost, div.description { min-height: 100%; }
+
+			div.fdnewsitem {
+				position: relative;
+				padding-top: 10px;
+				padding-bottom: 12px;
+				padding-right: 20px;				
+				border-left: 16px solid transparent;
+				/* make room for toggle icon unless full posts are showing */
+				
+				  		padding-left: 64px;
+					
+			}
+			div.newsitemsep {
+				border-bottom: 1px dotted #AAB8C0;
+			}
+			
+			#fdfocusedpost, #fdfocusedpost div.postactions { 
+				border-left-color: #E6EDF9 !important;
+			}
+			
+			div.newsitemtitle {
+				max-width: 65%;
+			}
+			
+			span#search-count { margin-left: 8px; color: silver; }
+
+			div.sourceline {
+				font-style: italic;
+				font-size: 86%;
+				color: gray;
+				display: inline;
+			}
+			div.sourceline a { color: #527D92 }
+			div.sourceline a:hover { color: #8EAAB8 }
+			
+			div.dateline {	
+				font-style: italic;
+				font-size: 86%;
+				color: gray;
+				display: inline;
+		 	 	position: absolute;
+		 	 	right: 6px;
+		 	 	top: 10px;
+		 	 	z-index: 1;
+				background-color: white; padding-left: 6px; /* in case it overlaps title on left */		 	 	
+			}			
+			div.postactions { display: inline; }
+			div.friendlist { margin-right: 6px; }
+
+			/* override surfer.css */			
+			img.fdpostimg, img.profileimg {
+				position: absolute;
+				left: 3px;
+				top: 36px;
+				margin: 0;
+				padding: 2px;
+				border: 1px dotted #AAB8C0;
+				height: 36px;
+				max-width: 40px;
+			}
+			img.profileimg { top: 36px; }
+			
+			div.description {
+				padding-top: 2px;
+				min-height: 40px; /* make sure there's room for fdpostimg */
+			}
+				
+			div.noitems { 
+				color: gray; 
+				margin: 20px 28px;
+			}
+			div.noitems a { text-decoration: underline; }
+			
+			/* keep group headers on one line */
+			div.groupheader {
+				min-height: 20px;
+				overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+			}
+			
+			/* icons in header */
+			div#page-icons { 	
+				float: right;
+				font-size: small;
+				margin-right: 28px;
+			}
+			div#page-icons, div#page-icons a { color: #e3e3e3; }
+			span#content-options { margin-left: 30px; }
+			#headerimg { vertical-align: middle; }
+			
+			img.toggle-excerpt, img.flag, img.markread {
+				position: absolute;
+				padding: 3px;
+			}
+			img.markread { left: 1px; top: 7px; }
+			img.flag { left: 21px; top: 7px; }
+			img.toggle-excerpt { left: 42px; top: 9px; }
+			/* hide flag and mark read icons in postactions.inc */			
+			span.postactions-markread, span.postactions-flag { display: none; }
+			
+			img.newtab { margin-top: -3px; }
+			
+			/* used when "Enable videos and other embedded content" is turned off */
+			div.embed-removed {
+				margin: 4px 0 !important;
+				padding: 0 !important;
+			}			
+			div.embed-removed img {
+				padding: 6px 8px;
+				border: 1px dotted #BDC2C4;
+				background-color: #ECF2F5
+			}
+			
+			div.translated { font-size: smaller; font-weight: bold; }			
+		
+			a#groupby-menu { text-decoration: underline; }
+				
+			/* content options */
+			a img.contenticon { border: 2px solid transparent; margin-right: 3px; }
+			a:hover img.contenticon { border-color: #7198C1; }
+		
+			img#content-headlines
+			{ 
+				border: 2px solid #7198C1;
+			}
+			/* hide toggle icon when showing full posts or only one post is showing */
+			
+				div.description.collapsed { display: none; }
+				div.description.expanded { display: block; min-height: 40px; }
+				/*div.newsitemtitle, a.newsitemtitle { 
+					text-overflow: ellipsis;
+					white-space: nowrap;
+					overflow: hidden;
+					max-width: 80%;
+			   }
+			   a.newsitemtitle {
+			   	max-width: 45%;
+			   	display: inline-block;
+			   }*/
+			</style>
+</head>
+
+<body>
+
+锘?	<div id="pagehead">	
+		<div id="newspapertitle">
+			<img id="headerimg" src="images/newspaper-lg.png" align="middle"><a href="http://blog.sina.com.cn/s/blog_4caedc7a0102w3i0.html" title="link to the Source page">成为数据专家，你只差一个Quick Insights的距离</a>
+		</div>
+	</div>
+	<div id="container">
+		<div class="groupheader collapsible">
+			<span class="groupcaption">Tue Dec 22 16:14:59 CST 2015</span>
+		</div>
+	<div class="groupitems">
+		<div class="fdnewsitem" >
+			<div class="newsitemtitle">
+				<a class="newsitemtitle flagged" href="http://blog.sina.com.cn/s/blog_4caedc7a0102w3i0.html" title="link to the Source page">成为数据专家，你只差一个Quick Insights的距离</a>
+				<div class="sourceline">
+					<span class="sep">|</span>
+					<a href="http://blog.sina.com.cn/s/blog_4caedc7a0102w3i0.html">微软亚洲研究院</a>
+					<span class="sep">|</span>微软亚洲研究院
+				</div>
+			</div>
+			<div class="description expanded nocollapse">
+				<p><div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYoRHHjYfa" TARGET="_blank"><img SRC="http://s11.sinaimg.cn/mw690/001p48JAgy6XYoRHHjYfa" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p>
+<span>身处如今的大数据时代，你真的知道如何处理数据和分析数据吗？或许那些被你忽视的数据背后就暗藏着重要的商业灵感。并非人人都是数据专家，有时候你需要一些专业的软件来帮你处理数据。那么如何能快速、准确地从数据中提取最有价值的部分从而进行有效的分析呢？只会简单统计图肯定是不够的，你还需要</SPAN>Power
+BI<span>平台最新推出的“快速洞察”（</SPAN>Quick
+Insights<span>）功能，利用可视化的数据呈现方法以及专家级的数据洞察能力，实现快速、专业的数据分析。</SPAN></P>
+<p>Power BI<span>是微软推出的在线服务，通过</SPAN><a HREF="http://powerbi.com" TARGET="_blank">powerbi.com</A><span>能够让你用最直观的方法对数据进行处理，例如查找和呈现数据、在线共享数据、团队协同合作，等等。目前，</SPAN>Power
+BI<span>平台最新推出的“快速洞察”（</SPAN>Quick
+Insights<span>）功能够帮助你快速找到数据背后的秘密。想要使用这个新的工具，你只需选择“</SPAN>Quick
+Insights<span>”，并将它应用在一个已经上传到</SPAN>PowerBI<span>的数据集上，系统将会在大约几秒钟内从数据中搜索出你可能感兴趣的信息，如数据之间的相关性、数据内的异常点、时序数据的趋势以及周期性变化规律等等，并进行可视化呈现。当用户面对陌生的数据集不知从哪里入手进行分析时，这些自动搜索出的信息可以为用户提供有效的切入点。对于用户熟悉的数据集，</SPAN>Quick
+Insights<span>也有可能提供超出预期的分析结果。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYnK7naS46" TARGET="_blank"><img SRC="http://s7.sinaimg.cn/mw690/001p48JAgy6XYnK7naS46" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p><span>&#8203;</SPAN></P>
+<h2><span STYLE="word-spacing: normal;"><strong><span STYLE="word-spacing: normal;">更好的数据分析从</SPAN><span STYLE="word-spacing: normal;">Quick Insights</SPAN><span STYLE="word-spacing: normal;">开始！</SPAN></STRONG></SPAN></H2>
+<p>BI<span>即商业智能（</SPAN>Business Intelligence,
+BI<span>）。过去在商业智能领域，用户和数据分析工具之间的交互往往是单向的。具体表现为，用户用命令或者通过图形化界面告诉系统需要进行查询或者生成图表。这样系统只是被动地接受指令，对数据进行处理然后返回结果。相比之下，</SPAN>Quick
+Insights<span>提供了双向的交互模型。当用户上传数据之后，它的算法能够主动对这些数据进行分析，将分析结果以</SPAN>insights<span>的形式进行组织和排序，并将排名在前的</SPAN>insights<span>提供给用户。不仅如此，</SPAN>Quick
+Insights<span>会选择适合的数据展示方式来呈现这些</SPAN>insights<span>，并配合文字说明以方便用户理解。</SPAN></P>
+<p><span>目前，</SPAN>Quick
+Insights<span>提供了七种类型的</SPAN>insights<span>。借助这些不同种类的</SPAN>insights<span>，用户能够快速地在数据中找到关键信息。以汽车销售数据为例，倘若你上传了一份跨越多年的汽车销售记录数据，或者是一份</SPAN><span>汽车相关的</SPAN><span>应用软件</SPAN><span>下载记录数据，那么如何在如此庞杂的数据中筛选出最有价值的信息呢？</SPAN>Quick
+Insights<span>可以从以下方面提供帮助。</SPAN></P>
+<p>
+1、<span>主因素分析：在特定维度下，分析找出对于结果影响最大的某个因素。例如汽车销售量的大部分是由一线销售贡献的。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYnx24iL3b" TARGET="_blank"><img SRC="http://s12.sinaimg.cn/mw690/001p48JAgy6XYnx24iL3b" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p>
+2、<span>类别优势或劣势分析：鉴别出单一维度下，相对优势或劣势突出的元素类型。例如，在消费者获取购车折扣的联系人中，一线销售和市场经理这两项，相比于其他项有明显的领先优势。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYnNae7p63" TARGET="_blank"><img SRC="http://s4.sinaimg.cn/mw690/001p48JAgy6XYnNae7p63" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p><span STYLE="word-spacing: normal;">3、</SPAN><span STYLE="word-spacing: normal;">时间序列特殊点：对于时间序列数据，分析出具有异常数据的时间点。例如</SPAN><span STYLE="word-spacing: normal;">2012</SPAN><span STYLE="word-spacing: normal;">年</SPAN><span STYLE="word-spacing: normal;">1</SPAN><span STYLE="word-spacing: normal;">月到</SPAN><span STYLE="word-spacing: normal;">7</SPAN><span STYLE="word-spacing: normal;">月的某几天，消费者对于天气相关的应用软件的下载量异常的高。</SPAN><span STYLE="word-spacing: normal;">&#8203;</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYnLb5rwf6" TARGET="_blank"><img SRC="http://s7.sinaimg.cn/mw690/001p48JAgy6XYnLb5rwf6" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p>4、<span>时间序列的趋势：分析数据随时间变化趋势。如南美地区的折扣在逐年增加等等。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYntIZZHf5" TARGET="_blank"><img SRC="http://s6.sinaimg.cn/mw690/001p48JAgy6XYntIZZHf5" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p>5、<span>时间序列的周期性：分析数据的周期性变化趋势。如产品预算随时间呈现明显的周期性增长。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYnLQx6df5" TARGET="_blank"><img SRC="http://s6.sinaimg.cn/mw690/001p48JAgy6XYnLQx6df5" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p>
+6、<span>稳定的比例关系分析：找出一系列变量中有稳定比例关系的自变量与因变量。例如在汽车销售的成本核算上，一线销售所占比例基本不变。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYnO3TWZcd" TARGET="_blank"><img SRC="http://s14.sinaimg.cn/mw690/001p48JAgy6XYnO3TWZcd" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p>7、<span>数据关联分析：找出多个变量之间的相关性。例如折扣力度和销售量之间的正比例关系。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYnOurXp9f" TARGET="_blank"><img SRC="http://s16.sinaimg.cn/mw690/001p48JAgy6XYnOurXp9f" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p STYLE=""><span>&#8203;</SPAN><span STYLE="word-spacing: normal;">未来，</SPAN><span STYLE="word-spacing: normal;">Quick Insights</SPAN><span STYLE="word-spacing: normal;">还将推出时序数据的变化分析以及均匀分布分析等更多的专业分析模型供用户使用。“</SPAN><span STYLE="word-spacing: normal;">Power
+BI</SPAN><span STYLE="word-spacing: normal;">的新功能——</SPAN><span STYLE="word-spacing: normal;">Quick Insights</SPAN><span STYLE="word-spacing: normal;">，让你只通过点击鼠标，就能对数据使用多种分析算法并找到潜在规律，”</SPAN><span STYLE="word-spacing: normal;">Power
+BI</SPAN><span STYLE="word-spacing: normal;">的项目主管</SPAN><span STYLE="word-spacing: normal;">Patrick Baumgartner</SPAN><span STYLE="word-spacing: normal;">解释说。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYo0YZ6d15" TARGET="_blank"><img SRC="http://s6.sinaimg.cn/mw690/001p48JAgy6XYo0YZ6d15" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p><span STYLE="word-spacing: normal;">&#8203;</SPAN></P>
+<h2><span STYLE="word-spacing: normal;"><strong><span STYLE="word-spacing: normal;">&#8203;</SPAN><span STYLE="word-spacing: normal;">知其一，也知其二</SPAN></STRONG></SPAN></H2>
+<p>Quick
+Insights<span>的诞生来源于两个团队的共同努力，分别是微软亚洲研究院的软件分析组（</SPAN>Software
+Analytics Group<span>）和总部的</SPAN>Power
+BI<span>产品团队。微软亚洲研究院软件分析组多年来在数据分析以及可视化等方面的研究和积累为</SPAN>Quick
+Insights<span>的研发奠定了牢固的基础。</SPAN></P>
+<p><span>&#8203;</SPAN><span STYLE="word-spacing: normal;">“微软亚洲研究院软件分析组的研究工作可以分为应用领域和基础研究领域，”该组的首席研究员张冬梅博士介绍道。从应用领域来说，软件分析组以软件为研究对象，主要采用数据驱动的方式解决三个方面的问题，一是软件系统的质量（</SPAN><span STYLE="word-spacing: normal;">Quality</SPAN><span STYLE="word-spacing: normal;">），如可靠性、性能、以及安全性等；二是用户体验（</SPAN><span STYLE="word-spacing: normal;">Experience</SPAN><span STYLE="word-spacing: normal;">），如用户界面、用户使用方式、以及用户黏度等等；最后是软件开发效率（</SPAN><span STYLE="word-spacing: normal;">Productivity</SPAN><span STYLE="word-spacing: normal;">）。为了解决这些应用领域中的问题，我们需要在一些基础研究领域内有相应的技术支撑，包括大规模数据存储与计算、各种数据分析算法、以及信息可视化。</SPAN></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYo9LMCKba" TARGET="_blank"><img SRC="http://s11.sinaimg.cn/mw690/001p48JAgy6XYo9LMCKba" STYLE="max-width: 100%;" /></A></DIV>
+</DIV>
+<p><span STYLE="word-spacing: normal;">张冬梅博士说：“日常工作中，我们在基础研究领域中的技术会为应用领域的研究目标提供支持；同时，我们在应用领域中遇到的挑战也为我们在基础领域的研究提供问题和灵感。事实上包括‘</SPAN><span STYLE="word-spacing: normal;">Quick
+Insights</SPAN><span STYLE="word-spacing: normal;">’在内，我们有很多研究课题与项目设想是基于这种‘应用领域与基础领域’相互作用的工作状态。”</SPAN></P>
+<p><span STYLE="word-spacing: normal;">&#8203;</SPAN><span STYLE="word-spacing: normal;">在张冬梅博士和她的团队内部，</SPAN> <span STYLE="word-spacing: normal;">Quick Insights</SPAN><span STYLE="word-spacing: normal;">有一个内部代号，即“</SPAN><span STYLE="word-spacing: normal;">IN4</SPAN><span STYLE="word-spacing: normal;">”项目。“</SPAN><span STYLE="word-spacing: normal;">IN4</SPAN><span STYLE="word-spacing: normal;">”的名称取自</SPAN><span STYLE="word-spacing: normal;">interactive</SPAN><span STYLE="word-spacing: normal;">（互动）、</SPAN><span STYLE="word-spacing: normal;">intuitive</SPAN><span STYLE="word-spacing: normal;">（直观）、</SPAN><span STYLE="word-spacing: normal;">instant</SPAN><span STYLE="word-spacing: normal;">（瞬时）和</SPAN><span STYLE="word-spacing: normal;">insights</SPAN><span STYLE="word-spacing: normal;">（洞察）这四个单词。这四个单词描述了</SPAN><span STYLE="word-spacing: normal;">Quick Insights</SPAN><span STYLE="word-spacing: normal;">的产品特性，更包含了微软亚洲研究院软件分析组对于这项技术的期待与追求。团队成员们希望“</SPAN><span STYLE="word-spacing: normal;">IN4</SPAN><span STYLE="word-spacing: normal;">”能让未来的数据分析过程更具互动性、更加直观、更实时快速，最后也更具智能化的洞察性。</SPAN></P>
+<p><span STYLE="word-spacing: normal;">&#8203;</SPAN></P>
+<h2><strong><span STYLE="word-spacing: normal;">成功的基石伴随着合作的共赢</SPAN></STRONG></H2>
+<p>
+2015<span>年</SPAN>3<span>月在微软技术节（</SPAN>TechFest<span>）上，“</SPAN>IN4<span>”项目首次在公司内发布。就在这场微软技术节上，“</SPAN>IN4<span>”项目和</SPAN>Power
+BI<span>首次相遇，并一拍即合。随后的几个月中，两个跨国团队密切合作，攻克了许多技术难关，迅速开发出</SPAN>Quick
+Insights<span>的原型，随后不断完善。</SPAN>Power
+BI<span>团队十分激动地在邮件中写道：“非常感谢微软亚洲研究院团队的支持。如果没有你们的技术，我们在智能数据分析方面的产品开发将会难以开展。正因为有了你们的帮助，我们才能如此迅速和高效地把这项让人惊喜的技术应用到</SPAN>Power
+BI<span>中。”</SPAN></P>
+<p><span STYLE="word-spacing: normal;">今年</SPAN><span STYLE="word-spacing: normal;">12</SPAN><span STYLE="word-spacing: normal;">月，</SPAN><span STYLE="word-spacing: normal;">Quick Insights</SPAN><span STYLE="word-spacing: normal;">正式上线。在短短不到</SPAN><span STYLE="word-spacing: normal;">9</SPAN><span STYLE="word-spacing: normal;">个月的时间里，我们见证了一项技术研究向产品的转化，时间之快，在众多技术转化的合作案例中也不常见。谈及为何能在这么短的时间内从合作想法的萌芽到产品功能的发布，冬梅博士感慨这离不开两个团队的共同努力：“虽然两个团队距离遥远，甚至都没有太多面对面交流的机会，但两个团队的合作非常默契。有了想法、技术再加之以践行，合作共赢，才最终让我们的灵感‘振翅高飞’！“相信在未来，两个团队将会继续携手并进，在</SPAN><span STYLE="word-spacing: normal;">Power
+BI</SPAN><span STYLE="word-spacing: normal;">的</SPAN><span STYLE="word-spacing: normal;">&#160;</SPAN><span STYLE="word-spacing: normal;">平台上为用户带来更多更智能的数据分析服务！</SPAN></P>
+<p><span STYLE="word-spacing: normal;">&#8203;</SPAN></P>
+<p><span STYLE="word-spacing: normal;">&#8203;</SPAN><span><span><span>了解</SPAN></SPAN></SPAN><span>微软亚洲研究院软件分析组研究</SPAN><span>详情，请点击：</SPAN><a HREF="http://research.microsoft.com/en-us/groups/sa/" TARGET="_blank">http://research.microsoft.com/en-us/groups/sa/</A>&#160;</P>
+<p><span STYLE="word-spacing: normal;">&#8203;</SPAN></P>
+<h1><b>推荐阅读</B></H1>
+<p><a HREF="http://blog.sina.com.cn/s/blog_4caedc7a0102w2xg.html" TARGET="_blank">微软亚洲研究院开源图数据库GraphView</A><br /></P>
+<p><a HREF="http://blog.sina.com.cn/s/blog_4caedc7a0102w1eo.html" TARGET="_blank">人工智能，一个很好的“左脑”</A><br /></P>
+<p>&#8203;<a HREF="http://blog.sina.com.cn/s/blog_4caedc7a0102vyi1.html" TARGET="_blank">从第一步，到每一步：微软学术搜索</A></P>
+<div STYLE="font-size: 17px; line-height: 28px; padding-top: 5px;">
+<div STYLE="overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYoqSWHmd8" TARGET="_blank"><img SRC="http://s9.sinaimg.cn/mw690/001p48JAgy6XYoqSWHmd8" STYLE="max-width: 100%;" /></A><a>&#160;</A></DIV>
+</DIV>
+<h1><b>欢迎关注</B></H1>
+<p>微软亚洲研究院官方网站：http://www.msra.cn</P>
+<p>微软亚洲研究院微博：http://t.sina.com.cn/msra</P>
+<p>微软亚洲研究院微信：搜索“微软研究院“或扫描下方二维码:</P>
+<div STYLE="float: left; margin-top: 6px; padding: 5px 24px 24px 0px; width: 323px; font-size: 17px; line-height: 28px;">
+<div STYLE="width: 323px; overflow: hidden; text-align: center; padding: 0px 0px 34px; position: relative;" UNSELECTABLE="on"><a HREF="http://blog.photo.sina.com.cn/showpic.html#url=http://album.sina.com.cn/pic/001p48JAgy6XYoroHAzf7" TARGET="_blank"><img SRC="http://s8.sinaimg.cn/mw690/001p48JAgy6XYoroHAzf7" STYLE="max-width: 323px; box-sizing: border-box;" /></A></DIV>
+</DIV><br /><img src="http://simg.sinajs.cn/blog7style/images/special/1265.gif">&#160;</p>
+			</div>
+			<div class="dateline"><span>Tue Dec 22 16:14:59 CST 2015</span><span class="sep">|</span>
+			</div>
+		</div>
+		<div class="newsitemsep"></div>
+	</div>
+</div>
+</html>
+
+</body>
+</html>

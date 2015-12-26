@@ -55,7 +55,8 @@ public class RArticle {
     	UID = Integer.toHexString(Title.hashCode());
     	URL = entry.getLink();
         SyndContent description = entry.getDescription();
-    	Abstract = description.getValue();
+        if(description!=null)
+        	Abstract = description.getValue();
     	Author = entry.getAuthor();
     	date = entry.getPublishedDate();
     	RSS = r;

@@ -291,7 +291,7 @@ public class Hhtml {
 		
 	}
 	/**
-	 * 新建欢迎主界面
+	 * 新建欢迎主界面（目前为静态Index，暂时留空）
 	 */
 	private static void BuildIndex(){
 		
@@ -303,7 +303,7 @@ public class Hhtml {
 	 */
 	public static void UpdateModel(String uid, String model){
 		RSS r = RSSStore.RS.get(model);
-		RArticle ua = r.UnreadA.get(uid);
+		RArticle ua = r.AllA.get(uid);
 		//HTML reading
 		BufferedReader html;
 		BufferedReader hr;

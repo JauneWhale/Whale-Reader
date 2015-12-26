@@ -1,6 +1,8 @@
 package WhaleSWT;
 
 import java.io.IOException;
+import java.util.Locale;
+
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.browser.Browser;
 import org.eclipse.swt.browser.TitleEvent;
@@ -18,7 +20,10 @@ import WhaleData.RSSStore;
  *
  */
 public class Wframe implements TitleListener{
-	//驱动函数
+	/**
+	 * 驱动函数
+	 * @param args
+	 */
 	public static void main(String args[]) 
     { 
         Wframe aWindow = new Wframe("Whale Reader",600,800);
@@ -39,6 +44,7 @@ public class Wframe implements TitleListener{
 	 * @param width 宽度
 	 */
 	public Wframe(String title,int height,int width){
+    	Locale.setDefault(Locale.ENGLISH);
 		freshBrowser = null;
     	aData = new RSSStore(0);
 		display = new Display();
@@ -94,7 +100,7 @@ public class Wframe implements TitleListener{
 		}
         display.dispose(); 
 	} 
-	/**
+	/**	
 	 * 提供给浏览器使用的标题监听器，主要监听当前有无标签的跳转产生的“已阅读”的事件
 	 */
 	@Override

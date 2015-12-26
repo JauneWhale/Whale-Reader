@@ -1,6 +1,7 @@
 package WhaleData;
 
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
@@ -9,6 +10,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -20,6 +22,10 @@ import org.jdom.output.XMLOutputter;
 
 import com.sun.syndication.feed.synd.SyndEntry;
 import com.sun.syndication.feed.synd.SyndFeed;
+import com.sun.syndication.feed.synd.SyndImage;
+import com.sun.syndication.fetcher.FeedFetcher;
+import com.sun.syndication.fetcher.FetcherException;
+import com.sun.syndication.fetcher.impl.HttpURLFeedFetcher;
 import com.sun.syndication.io.FeedException;
 import com.sun.syndication.io.SyndFeedInput;
 import com.sun.syndication.io.XmlReader;
@@ -33,18 +39,6 @@ public class RSSStore {
 	public static Hashtable<String,RSS> RS;
 	public static Document doc;
 	public static RArticle r;
-	public static void main(String args[]){
-		RSSStore a = new RSSStore(1);
-		try {
-			a.SaveXML();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	/**
 	 * 初始化整个阅读器的数据
 	 * @param t
@@ -187,16 +181,16 @@ public class RSSStore {
      * @param r 要更新的RSS源
      * @return 成功则返回RSS源结构体，否则返回null
      */
-    public RSS UpdateXML(RSS r){
+    public static RSS UpdateXML(RSS r){
         try {
             //System.out.println(entry.Feed_URL);
-            URL url = new URL(r.Feed_URL);
+            /*URL url = new URL(r.Feed_URL);
             // 读取Rss源   
             XmlReader reader = new XmlReader(url);
             System.out.println("Rss源的编码格式为：" + reader.getEncoding());
-            SyndFeedInput input = new SyndFeedInput();
+            SyndFeedInput input = new SyndFeedInput();*/
             // 得到SyndFeed对象，即得到Rss源里的所有信息   
-            SyndFeed feed = input.build(reader);
+            SyndFeed feed = ParseFeed(r.Feed_URL);//input.build(reader);
             //System.out.println(feed);
             // 得到Rss新闻中子项列表   
             List entries = feed.getEntries();
@@ -236,16 +230,31 @@ public class RSSStore {
         }
     }
     /**
+     * 可用于修改不同的获取feed的方式，现在尝试FeedFetcher
+     * @param url
+     * @return
+     * @throws IllegalArgumentException
+     * @throws IOException
+     * @throws FeedException
+     * @throws FetcherException
+     */
+    public static SyndFeed ParseFeed(String url) throws IllegalArgumentException, IOException, FeedException, FetcherException{
+    	URL u = new URL(url);
+		FeedFetcher fetcher = new HttpURLFeedFetcher();
+		SyndFeed feed = fetcher.retrieveFeed(u);
+		return feed;
+		/*reader = new XmlReader(u);
+        SyndFeedInput input = new SyndFeedInput();
+        SyndFeed feed = input.build(reader);*/
+    }
+    /**
      * 通过url添加一个RSS源，
      * @param url RSS源的feed链接
      * @return 成功则返回添加的RSS结构体，否则返回null
      */
-    public RSS AddtoXML(String url){
-        XmlReader reader;
+    public static RSS AddtoXML(String url){
 		try {
-			reader = new XmlReader(new URL(url));
-            SyndFeedInput input = new SyndFeedInput();
-            SyndFeed feed = input.build(reader);
+			SyndFeed feed = ParseFeed(url);
 	    	RSS r = new RSS(feed,url);
 	    	RS.put(r.RID, r);
 	    	AddtoXML(r);
@@ -263,13 +272,17 @@ public class RSSStore {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
+		} catch (FetcherException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
 		} 
     }
     /**
      * 将一个RSS结构体添加到XML的document中
      * @param r RSS 结构体
      */
-    private void AddtoXML(RSS r){
+    private static void AddtoXML(RSS r){
     	Element root = doc.getRootElement();
         Element FeedSource = (Element) (root.getChildren("FeedSource")).get(0);
         Element rss = new Element("RSS");
@@ -341,6 +354,7 @@ public class RSSStore {
     public static void MarkReadfromXML(String uid, String rid){
     	RSS r = RSSStore.RS.get(rid);
 		RArticle ua = r.UnreadA.get(uid);
+		if(ua==null) return;
     	ua.ifread = true;
     	r.UnreadA.remove(ua.UID);
     	r.UnReadNum--;

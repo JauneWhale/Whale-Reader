@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="lib" path="lib/jdom.jar"/>
 	<classpathentry kind="lib" path="lib/rome-1.0.jar"/>
 	<classpathentry kind="lib" path="D:/javaworkspace/WhaleReader/lib/swt-debug.jar" sourcepath="src"/>
@@ -11,5 +10,7 @@
 	<classpathentry kind="lib" path="D:/javaworkspace/WhaleReader/lib/org.eclipse.equinox.common_3.7.0.v20150402-1709.jar"/>
 	<classpathentry kind="lib" path="D:/javaworkspace/WhaleReader/lib/org.eclipse.osgi_3.10.101.v20150820-1432.jar"/>
 	<classpathentry kind="lib" path="D:/javaworkspace/WhaleReader/lib/org.eclipse.ui.workbench_3.107.0.v20150825-2206.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="D:/javaworkspace/WhaleReader/lib/rome-fetcher-1.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

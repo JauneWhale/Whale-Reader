@@ -4,11 +4,17 @@ package WhaleSWT;
 import java.util.Iterator;
 import java.util.List;
 import org.eclipse.jface.dialogs.InputDialog;
+import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.swt.SWT; 
 import org.eclipse.swt.events.*;
+import org.eclipse.swt.graphics.Color;
+import org.eclipse.swt.graphics.Font;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Point;
 import org.eclipse.swt.layout.*;
 import org.eclipse.swt.widgets.*;
+import org.eclipse.ui.plugin.AbstractUIPlugin;
+
 import WhaleData.*;
 
 public class WRSSlist{ 
@@ -47,8 +53,15 @@ public class WRSSlist{
        // Right Click Menu
        addClicktrack();
        addRMenu();
+       root.setExpanded(true);
        tree.setLinesVisible(false); 
        tree.setHeaderVisible(false); 
+       //Image bg = new Image(null, "04.png");
+       //tree.setBackgroundImage(bg);
+       //tree.setBackground(new Color(null, 30, 30, 30));
+       //tree.setForeground(new Color(null, 180, 180, 180));
+       tree.setBackground(new Color(null, 35, 57, 79));
+       tree.setForeground(new Color(null, 236, 242, 245));
 	} 
 	/**
 	 * 添加击键跟踪,右击时更新当前的操作point,左击时更新当前的浏览器界面
@@ -154,11 +167,10 @@ public class WRSSlist{
        newItem.addSelectionListener(new SelectionAdapter() {
            @Override
            public void widgetSelected(SelectionEvent e) {
-        	   InputDialog inputDialog = new InputDialog(Wframe.shell,"添加RSS源","请输入feed链接","",null);
+        	   InputDialog inputDialog = new InputDialog(Wframe.shell,"Add Subscription","Please enter the feed-URL","",null);
         	   if(inputDialog.open() == InputDialog.OK){
         	       String url = inputDialog.getValue();
-        	       RSSStore adata = new RSSStore(1);
-        	       RSS r = adata.AddtoXML(url);
+        	       RSS r = RSSStore.AddtoXML(url);
         	       if(r!=null){
         	    	   TreeItem rss = new TreeItem(root, SWT.NULL);
         	    	   rss.setText(r.Title + "(" + r.UnReadNum+")");

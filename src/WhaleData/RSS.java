@@ -1,14 +1,8 @@
 package WhaleData;
 
-import java.io.IOException;
-import java.net.URL;
 import java.util.Hashtable;
 import org.jdom.Element;
-
 import com.sun.syndication.feed.synd.SyndFeed;
-import com.sun.syndication.io.FeedException;
-import com.sun.syndication.io.SyndFeedInput;
-import com.sun.syndication.io.XmlReader;
 
 /**
  * 负责保存RSS源相关信息的结构体类
@@ -61,7 +55,7 @@ public class RSS {
     /**
      * 测试用：打印RSS源成员变量信息
      */
-    private void printInfo(){
+    public void printInfo(){
     	System.out.println(Title);
     	System.out.println(RID);
     	System.out.println(Feed_URL);

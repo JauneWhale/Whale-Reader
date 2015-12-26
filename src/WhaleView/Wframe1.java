@@ -13,7 +13,7 @@ import WhaleData.RSSStore;
  * @author Administrator
  * @deprecated
  */
-public class Wframe extends JFrame {
+public class Wframe1 extends JFrame {
 	int height,width;
 	//Frame Class
     MenuBar mb;  
@@ -55,7 +55,7 @@ public class Wframe extends JFrame {
 		ReadArea = new WReadArea();
 		//content.add(RSSList, BorderLayout.WEST);
 	}
-    public Wframe(String title,int height,int width){
+    public Wframe1(String title,int height,int width){
     	super(title);
     	setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	    addWindowListener(new WindowAdapter() {
@@ -92,7 +92,7 @@ public class Wframe extends JFrame {
     	int height,width;
     	width = 640;
     	height = 480;
-        Wframe aWindow = new Wframe("Whale Reader",width,height);
+        Wframe1 aWindow = new Wframe1("Whale Reader",width,height);
         Toolkit theKit = aWindow.getToolkit();       // Get the window toolkit
 	    Dimension wndSize = theKit.getScreenSize();  // Get screen size
 
